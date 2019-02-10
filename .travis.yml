@@ -41,7 +41,7 @@ jobs:
       before_script:
         - brew install hub
         - hub --version
-        - git remote set-url origin https://triager:$TRIAGER_BOT_TOKEN@github.com/appium/appium
+        - git remote set-url origin https://devicemanager:$TRIAGER_BOT_TOKEN@github.com/devicemanager/appium
         - git checkout -b generate-docs-$TRAVIS_COMMIT
         - npm install
       script:
@@ -57,7 +57,7 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git commit -a -n -m 'Update generated docs';
             git push origin generate-docs-$TRAVIS_COMMIT;
-            hub pull-request -b "appium:master" -h "appium:generate-docs-$TRAVIS_COMMIT" -m "Update auto-generated docs";
+            #hub pull-request -b "appium:master" -h "appium:generate-docs-$TRAVIS_COMMIT" -m "Update auto-generated docs";
           fi
     - stage:
       name: Bundle
@@ -110,7 +110,7 @@ jobs:
         - pip install mkdocs==0.16.3
 
         # Checkout appium.io repository
-        - git clone https://triager:$TRIAGER_BOT_TOKEN@github.com/appium/appium.io.git --branch=gh-pages && cd appium.io/
+        - git clone https://devicemanager:$TRIAGER_BOT_TOKEN@github.com/devicemanager/appium.io.git --branch=gh-pages && cd appium.io/
         - git checkout -b docs-$TRAVIS_TAG
         - bundle install
         - npm install
@@ -120,4 +120,4 @@ jobs:
         - npm run build:docs
         - git commit -a -n -m 'Updated docs for latest Appium version'
         - git push origin docs-$TRAVIS_TAG
-        - hub pull-request -b "appium:gh-pages" -h "appium:docs-$TRAVIS_TAG" -m "Update documentation for latest version" | exit 0 # The PR command works but always returns non-negative
+        #- hub pull-request -b "appium:gh-pages" -h "appium:docs-$TRAVIS_TAG" -m "Update documentation for latest version" | exit 0 # The PR command works but always returns non-negative
