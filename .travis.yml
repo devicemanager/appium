@@ -98,7 +98,7 @@ jobs:
         - npm run zip
         - npm install --only=dev gulp
         - npm install --only=dev appium-gulp-plugins
-        - npm run upload
+        #- npm run upload
 
     - stage: Update appium.io
       if: tag
